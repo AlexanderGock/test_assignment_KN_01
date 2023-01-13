@@ -1,0 +1,16 @@
+{
+  "databaseChangeLog": [
+    {
+      "include": {
+        "file": "classpath:/db/version/0.1/init/001_initial_tables.xml",
+        "relativeToChangelogFile": false
+      }
+    },
+    {
+      "include": {
+        "file": "classpath:/db/version/0.1/data/001_cities.xml",
+        "relativeToChangelogFile": false
+      }
+    }
+  ]
+}
