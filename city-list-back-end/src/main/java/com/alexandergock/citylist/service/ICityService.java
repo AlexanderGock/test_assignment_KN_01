@@ -6,4 +6,5 @@ import org.springframework.data.domain.Page;
 public interface ICityService {
   Page<City> getCities(String name, int page);
   void editCity(Long id, City city);
+  City getCity(Long id);
 }

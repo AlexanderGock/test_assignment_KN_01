@@ -43,4 +43,14 @@ public class CityService implements ICityService {
     cityRepository.save(city);
   }
 
+  @Override
+  public City getCity(Long id) {
+    log.info("Get city {}", id);
+    Optional<City> cityOptional = cityRepository.findById(id);
+    if (!cityOptional.isPresent()) {
+      throw new IllegalArgumentException("Entity with specified ID does not exist");
+    }
+    return cityOptional.get();
+  }
+
 }

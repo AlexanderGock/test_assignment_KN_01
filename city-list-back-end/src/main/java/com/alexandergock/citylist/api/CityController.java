@@ -32,4 +32,9 @@ public class CityController {
     cityService.editCity(id, city);
   }
 
+  @GetMapping("/{id}")
+  public City getCity(@PathVariable Long id) {
+    return cityService.getCity(id);
+  }
+
 }
