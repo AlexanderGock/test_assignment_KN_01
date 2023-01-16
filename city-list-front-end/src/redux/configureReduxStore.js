@@ -1,6 +1,6 @@
 import promiseMiddleware from "redux-promise-middleware";
 import { configureStore } from "@reduxjs/toolkit";
-import cityReducer from "./reducers/cityReducer";
+import citylistReducer from "./reducers/citylistReducer";
 
 export default function configureReduxStore() {
     const addPromiseAndThunkMiddleware = (curriedGetDefaultMiddleware) => {
@@ -15,7 +15,7 @@ export default function configureReduxStore() {
 
     return configureStore({
         reducer: {
-            city: cityReducer,
+            citylist: citylistReducer,
         },
         middleware: addPromiseAndThunkMiddleware,
     });

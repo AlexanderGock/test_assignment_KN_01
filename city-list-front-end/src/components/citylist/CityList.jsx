@@ -1,7 +1,9 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {getCityList} from "../../redux/actions/cityActions";
-import {cityListSelector} from "../../redux/selectors";
+import {useDispatch} from "react-redux";
+import {Fragment, useEffect} from "react";
+import {getCityList} from "../../redux/actions/citylistActions";
+import CityFilter from "./CityFilter";
+import CityTable from "./CityTable";
+import CityPagination from "./CityPagination";
 
 const CityList = () => {
     const dispatch = useDispatch();
@@ -10,9 +12,13 @@ const CityList = () => {
         dispatch(getCityList());
     }, [dispatch]);
 
-    const citylist = useSelector(cityListSelector);
-
-    return citylist.map(city => (city.name + ', '));
+    return (
+        <Fragment>
+            <CityFilter/>
+            <CityTable/>
+            <CityPagination/>
+        </Fragment>
+    );
 };
 
 export default CityList;
