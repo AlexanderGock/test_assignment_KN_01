@@ -18,7 +18,6 @@ public class WebApplicationConfig implements WebMvcConfigurer {
         .addResolver(new PathResourceResolver() {
           @Override
           protected Resource getResource(String resourcePath, Resource location) {
-            System.out.println("resourcePath: " + resourcePath);
             if (resourcePath.startsWith("api")) {
               return null;
             }
