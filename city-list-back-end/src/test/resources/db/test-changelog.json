@@ -1,0 +1,9 @@
+{
+  "databaseChangeLog": [
+    {
+      "include": {
+        "file": "classpath:db/test-version/0.1/test-version-0.1-changelog.json"
+      }
+    }
+  ]
+}
