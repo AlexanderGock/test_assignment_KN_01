@@ -8,8 +8,10 @@ import CityForm from "./CityForm";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import SaveIcon from "@mui/icons-material/Save";
 import {LoadingButton} from "@mui/lab";
+import {useTranslation} from "react-i18next";
 
 const CityEdit = () => {
+    const {t} = useTranslation('common');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {cityId} = useParams();
@@ -53,7 +55,7 @@ const CityEdit = () => {
                     color="primary"
                     disabled={false}
                     startIcon={<NavigateBeforeIcon/>}>
-                    Back
+                    {t('city.button.back')}
                 </Button>
             </Grid>
             <Grid item xs={8}/>
@@ -67,7 +69,7 @@ const CityEdit = () => {
                     color="primary"
                     disabled={!isChanged || saveInProgress || !isValid}
                     startIcon={<SaveIcon/>}>
-                    Save
+                    {t('city.button.save')}
                 </LoadingButton>
             </Grid>
         </Grid>

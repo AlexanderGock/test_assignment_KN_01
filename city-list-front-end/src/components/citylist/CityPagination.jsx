@@ -3,8 +3,10 @@ import {cityListPaginationSelector, getCityListInProgressFilter} from "../../red
 import {useCallback} from "react";
 import {TablePagination} from "@mui/material";
 import {getCityList} from "../../redux/actions/citylistActions";
+import {useTranslation} from "react-i18next";
 
 const CityPagination = () => {
+    const {t} = useTranslation('common');
     const dispatch = useDispatch();
 
     const pagination = useSelector(cityListPaginationSelector);
@@ -14,6 +16,10 @@ const CityPagination = () => {
         dispatch(getCityList(page));
     }, [dispatch]);
 
+    const translateDisplayedRows = useCallback((displayedRowsProps) =>
+        t('citylist.pagination.displayedrows', displayedRowsProps)
+    , [t]);
+
     return (
         <TablePagination
             count={pagination.totalElements}
@@ -22,8 +28,9 @@ const CityPagination = () => {
             rowsPerPageOptions={[pagination.pageSize]}
             component="div"
             onPageChange={changePageHandler}
-            nextIconButtonProps={{disabled: (getCityListInProgress || pagination.last)}}
-            backIconButtonProps={{disabled: (getCityListInProgress || pagination.first)}}/>
+            nextIconButtonProps={{disabled: (getCityListInProgress || pagination.last), title: t('citylist.pagination.next')}}
+            backIconButtonProps={{disabled: (getCityListInProgress || pagination.first), title: t('citylist.pagination.prev')}}
+            labelDisplayedRows={translateDisplayedRows}/>
     )
 };
 

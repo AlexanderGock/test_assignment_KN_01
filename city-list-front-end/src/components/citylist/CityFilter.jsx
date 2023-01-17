@@ -3,8 +3,10 @@ import {cityListFilterSelector} from "../../redux/selectors";
 import {Box, TextField} from "@mui/material";
 import {useCallback} from "react";
 import {changeFilter} from "../../redux/actions/citylistActions";
+import {useTranslation} from "react-i18next";
 
 const CityFilter = () => {
+    const {t} = useTranslation('common');
     const dispatch = useDispatch();
 
     const filter = useSelector(cityListFilterSelector);
@@ -16,7 +18,7 @@ const CityFilter = () => {
     return (
         <Box sx={{ mb: 2 }}>
             <TextField
-                label="Filter"
+                label={t('citylist.filter.title')}
                 variant="outlined"
                 value={filter.name || ''}
                 onChange={changeFilterHandler}

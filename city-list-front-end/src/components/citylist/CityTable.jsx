@@ -6,6 +6,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import "./CityTable.css";
 import EditIcon from "@mui/icons-material/Edit";
 import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -25,6 +26,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const CityTable = () => {
+    const {t} = useTranslation('common');
+
     const citylist = useSelector(cityListSelector);
 
     return (
@@ -33,10 +36,10 @@ const CityTable = () => {
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>
-                            City
+                            {t('citylist.table.header.city')}
                         </StyledTableCell>
                         <StyledTableCell>
-                            Photo
+                            {t('citylist.table.header.photo')}
                         </StyledTableCell>
                         <StyledTableCell padding="checkbox"/>
                     </TableRow>

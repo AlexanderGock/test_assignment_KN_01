@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 import {Grid, TextField} from "@mui/material";
 import {Fragment, useCallback} from "react";
+import {useTranslation} from "react-i18next";
 
 const CityForm = ({city, onPropertyChange}) => {
+    const {t} = useTranslation('common');
 
     const changeTextHandler = useCallback((event) => {
         const name = event.target.name;
@@ -14,7 +16,7 @@ const CityForm = ({city, onPropertyChange}) => {
         <Fragment>
             <Grid item xs={12}>
                 <TextField
-                    label="City name"
+                    label={t('city.form.city')}
                     variant="outlined"
                     value={city.name || ''}
                     onChange={changeTextHandler}
@@ -26,7 +28,7 @@ const CityForm = ({city, onPropertyChange}) => {
             </Grid>
             <Grid item xs={12}>
                 <TextField
-                    label="Photo"
+                    label={t('city.form.photo')}
                     variant="outlined"
                     value={city.photo || ''}
                     onChange={changeTextHandler}

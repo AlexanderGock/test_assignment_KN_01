@@ -1,0 +1,28 @@
+{
+  "citylist": {
+    "filter": {
+      "title": "Filter"
+    },
+    "pagination": {
+      "displayedrows": "{{from}}–{{to}} of {{count}}",
+      "next": "Go to the next page",
+      "prev": "Go to the previous page"
+    },
+    "table": {
+      "header": {
+        "city": "City",
+        "photo": "Photo"
+      }
+    }
+  },
+  "city": {
+    "form": {
+      "city": "City name",
+      "photo": "Photo"
+    },
+    "button": {
+      "back": "Back",
+      "save": "Save"
+    }
+  }
+}
