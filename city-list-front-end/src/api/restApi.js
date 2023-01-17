@@ -10,6 +10,10 @@ export const request = (url, options) => {
         fetch(url, options)
             .then(async (response) => {
                 try {
+                    const contentType = response.headers.get("content-type");
+                    if (!contentType || contentType.indexOf("application/json") === -1) {
+                        resolve();
+                    }
                     const json = await response.json();
                     if (response.status >= 400) {
                         reject(response);

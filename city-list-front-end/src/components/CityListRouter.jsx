@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom";
-import CityList from "./CityList";
-import CityEdit from "./CityEdit";
+import CityList from "./citylist/CityList";
+import CityEdit from "./city/CityEdit";
 
 const CityListRouter = () => {
     return (

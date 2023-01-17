@@ -1,6 +1,6 @@
 import './App.css';
 import {BrowserRouter, Route, Navigate, Routes} from "react-router-dom";
-import CityListRouter from "./components/citylist/CityListRouter";
+import CityListRouter from "./components/CityListRouter";
 import {Container, Box, Paper} from "@mui/material";
 
 function App() {

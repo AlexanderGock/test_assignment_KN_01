@@ -1,9 +1,11 @@
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {useSelector} from "react-redux";
 import {cityListSelector} from "../../redux/selectors";
 import { styled } from "@mui/material/styles";
 import { tableCellClasses } from '@mui/material/TableCell';
 import "./CityTable.css";
+import EditIcon from "@mui/icons-material/Edit";
+import {Link} from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -36,6 +38,7 @@ const CityTable = () => {
                         <StyledTableCell>
                             Photo
                         </StyledTableCell>
+                        <StyledTableCell padding="checkbox"/>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -48,6 +51,13 @@ const CityTable = () => {
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         <img src={city.photo} alt={city.photo} className="image-preview"/>
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        <Link to={city.id.toString()}>
+                                            <IconButton color="primary">
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Link>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             )

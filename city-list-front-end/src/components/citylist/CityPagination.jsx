@@ -22,8 +22,8 @@ const CityPagination = () => {
             rowsPerPageOptions={[pagination.pageSize]}
             component="div"
             onPageChange={changePageHandler}
-            nextIconButtonProps={{disabled: getCityListInProgress}}
-            backIconButtonProps={{disabled: getCityListInProgress}}/>
+            nextIconButtonProps={{disabled: (getCityListInProgress || pagination.last)}}
+            backIconButtonProps={{disabled: (getCityListInProgress || pagination.first)}}/>
     )
 };
 
