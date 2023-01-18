@@ -3,7 +3,7 @@ import {Grid, TextField} from "@mui/material";
 import {Fragment, useCallback} from "react";
 import {useTranslation} from "react-i18next";
 
-const CityForm = ({city, onPropertyChange}) => {
+const CityForm = ({city, onPropertyChange, readonly}) => {
     const {t} = useTranslation('common');
 
     const changeTextHandler = useCallback((event) => {
@@ -22,8 +22,8 @@ const CityForm = ({city, onPropertyChange}) => {
                     onChange={changeTextHandler}
                     name="name"
                     fullWidth
-                    required
-                    inputProps={{ maxLength: 255 }}
+                    required={!readonly}
+                    inputProps={{ maxLength: 255, readOnly: !!readonly }}
                     error={!city.name}/>
             </Grid>
             <Grid item xs={12}>
@@ -34,7 +34,7 @@ const CityForm = ({city, onPropertyChange}) => {
                     onChange={changeTextHandler}
                     name="photo"
                     fullWidth
-                    inputProps={{ maxLength: 1000 }}/>
+                    inputProps={{ maxLength: 1000, readOnly: !!readonly }}/>
             </Grid>
         </Fragment>
     );
@@ -43,6 +43,7 @@ const CityForm = ({city, onPropertyChange}) => {
 CityForm.propTypes = {
     city: PropTypes.object.isRequired,
     onPropertyChange: PropTypes.func.isRequired,
+    readonly: PropTypes.bool,
 };
 
 export default CityForm;

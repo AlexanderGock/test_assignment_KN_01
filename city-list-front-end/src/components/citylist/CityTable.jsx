@@ -1,12 +1,14 @@
 import {IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {useSelector} from "react-redux";
-import {cityListSelector} from "../../redux/selectors";
+import {cityListSelector, userSelector} from "../../redux/selectors";
 import { styled } from "@mui/material/styles";
 import { tableCellClasses } from '@mui/material/TableCell';
 import "./CityTable.css";
 import EditIcon from "@mui/icons-material/Edit";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import {isReadOnlyUser} from "../../utils/userUtils";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -29,6 +31,10 @@ const CityTable = () => {
     const {t} = useTranslation('common');
 
     const citylist = useSelector(cityListSelector);
+    const user = useSelector(userSelector);
+
+    const readonly = isReadOnlyUser(user);
+    const Icon = readonly ? FolderOpenIcon : EditIcon;
 
     return (
         <TableContainer>
@@ -58,7 +64,7 @@ const CityTable = () => {
                                     <StyledTableCell>
                                         <Link to={city.id.toString()}>
                                             <IconButton color="primary">
-                                                <EditIcon />
+                                                <Icon />
                                             </IconButton>
                                         </Link>
                                     </StyledTableCell>

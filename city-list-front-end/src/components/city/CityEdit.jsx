@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useCallback, useEffect} from "react";
 import {changeCityProperty, getCity, editCity} from "../../redux/actions/cityActions";
-import {cityChangedSelector, citySelector, saveInProgressSelector} from "../../redux/selectors";
+import {cityChangedSelector, citySelector, saveInProgressSelector, userSelector} from "../../redux/selectors";
 import {Button, CircularProgress, Grid} from "@mui/material";
 import {useParams, useNavigate} from "react-router-dom";
 import CityForm from "./CityForm";
@@ -9,6 +9,7 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import SaveIcon from "@mui/icons-material/Save";
 import {LoadingButton} from "@mui/lab";
 import {useTranslation} from "react-i18next";
+import {isReadOnlyUser} from "../../utils/userUtils";
 
 const CityEdit = () => {
     const {t} = useTranslation('common');
@@ -27,6 +28,7 @@ const CityEdit = () => {
     const city = useSelector(citySelector);
     const isChanged = useSelector(cityChangedSelector);
     const saveInProgress = useSelector(saveInProgressSelector);
+    const user = useSelector(userSelector);
 
     const backButtonClickHandler = useCallback(() => {
         navigate('/citylist');
@@ -42,11 +44,13 @@ const CityEdit = () => {
         );
     }
 
+    const readonly = isReadOnlyUser(user);
+
     const isValid = !!city.name;
 
     return (
         <Grid container spacing={2}>
-            <CityForm city={city} onPropertyChange={propertyChangeHandler}/>
+            <CityForm city={city} onPropertyChange={propertyChangeHandler} readonly={readonly}/>
             <Grid item xs={2}>
                 <Button
                     fullWidth
@@ -60,17 +64,22 @@ const CityEdit = () => {
             </Grid>
             <Grid item xs={8}/>
             <Grid item xs={2}>
-                <LoadingButton
-                    loading={saveInProgress}
-                    loadingPosition="start"
-                    fullWidth
-                    onClick={saveButtonClickHandler}
-                    variant="contained"
-                    color="primary"
-                    disabled={!isChanged || saveInProgress || !isValid}
-                    startIcon={<SaveIcon/>}>
-                    {t('city.button.save')}
-                </LoadingButton>
+                {
+                    !readonly &&
+                    (
+                        <LoadingButton
+                            loading={saveInProgress}
+                            loadingPosition="start"
+                            fullWidth
+                            onClick={saveButtonClickHandler}
+                            variant="contained"
+                            color="primary"
+                            disabled={!isChanged || saveInProgress || !isValid}
+                            startIcon={<SaveIcon/>}>
+                            {t('city.button.save')}
+                        </LoadingButton>
+                    )
+                }
             </Grid>
         </Grid>
     );

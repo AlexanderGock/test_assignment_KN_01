@@ -14,3 +14,6 @@ How to run an application on your local machine.
 4. Enjoy
 
 By default, app uses in-memory DB.
+There are two hardcoded users in the app
+user1 / password [ROLE_ALLOW_EDIT]
+user2 / password [ROLE_READ_ONLY]
