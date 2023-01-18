@@ -8,3 +8,5 @@ export const cityChangedSelector = state => state.city.get('isChanged');
 export const saveInProgressSelector = state => state.city.get('saveInProgress');
 
 export const userSelector = state => state.auth.get('user');
+
+export const errorSelector = state => state.error.get('error');

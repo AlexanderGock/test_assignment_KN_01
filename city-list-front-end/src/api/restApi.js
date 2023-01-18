@@ -12,13 +12,17 @@ export const request = (url, options) => {
                 try {
                     const contentType = response.headers.get("content-type");
                     if (!contentType || contentType.indexOf("application/json") === -1) {
-                        resolve();
+                        if (response.status >= 400) {
+                            return reject(response);
+                        }
+                        return resolve();
                     }
+
                     const json = await response.json();
                     if (response.status >= 400) {
-                        reject(response);
+                        return reject(json);
                     }
-                    resolve(json);
+                    return resolve(json);
                 } catch (e) {
                     reject(response);
                 }

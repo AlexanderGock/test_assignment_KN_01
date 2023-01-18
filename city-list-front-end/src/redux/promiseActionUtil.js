@@ -11,3 +11,7 @@ export function fulfilledFor(type) {
 export function rejectedFor(type) {
     return `${type}_${ActionType.Rejected}`;
 };
+
+export function isRejected(type) {
+    return type && type.endsWith(`_${ActionType.Rejected}`);
+};

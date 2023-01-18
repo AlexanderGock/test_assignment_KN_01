@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {getCurrentUser} from "./redux/actions/authActions";
 import Header from "./components/Header";
+import ErrorPanel from "./components/ErrorPanel";
 
 function App() {
     const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function App() {
     return (
         <BrowserRouter>
             <Header/>
+            <ErrorPanel/>
             <Container maxWidth="lg">
                 <Box>
                     <Paper sx={{ mb: 2, mt: 10, p: 2 }}>
