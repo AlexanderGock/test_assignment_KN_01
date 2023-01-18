@@ -32,4 +32,13 @@ public class AdviseController {
     return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
   }
 
+  @ExceptionHandler(IllegalAccessException.class)
+  public ResponseEntity<Object> illegalAccessException(IllegalAccessException exception) {
+    Map<String, Object> body = new HashMap<>();
+    body.put("timestamp", LocalDateTime.now());
+    body.put("error", exception.getMessage());
+    body.put("status", HttpStatus.UNAUTHORIZED.value());
+    return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
+  }
+
 }
