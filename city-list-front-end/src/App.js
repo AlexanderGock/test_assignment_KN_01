@@ -5,6 +5,7 @@ import {Container, Box, Paper} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {getCurrentUser} from "./redux/actions/authActions";
+import Header from "./components/Header";
 
 function App() {
     const dispatch = useDispatch();
@@ -14,18 +15,19 @@ function App() {
     }, [dispatch]);
 
     return (
-        <Container maxWidth="lg">
-            <Box>
-                <Paper sx={{ mb: 2, mt: 2, p: 2 }}>
-                    <BrowserRouter>
+        <BrowserRouter>
+            <Header/>
+            <Container maxWidth="lg">
+                <Box>
+                    <Paper sx={{ mb: 2, mt: 10, p: 2 }}>
                         <Routes>
                             <Route path="/citylist/*" element={<CityListRouter />} />
                             <Route path="*" element={<Navigate to="/citylist" />} />
                         </Routes>
-                    </BrowserRouter>
-                </Paper>
-            </Box>
-        </Container>
+                    </Paper>
+                </Box>
+            </Container>
+        </BrowserRouter>
     );
 }
 
