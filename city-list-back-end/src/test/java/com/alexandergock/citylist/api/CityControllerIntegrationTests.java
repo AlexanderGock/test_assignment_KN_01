@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -48,6 +49,7 @@ public class CityControllerIntegrationTests {
     cityRepository.save(new City(id, name, photo));
   }
 
+  @WithMockUser("spring")
   @Test
   public void testGetFirstPage_noFilter() throws Exception {
     mvc.perform(get(apiV1Prefix + "/cities").contentType(MediaType.APPLICATION_JSON))
@@ -63,6 +65,7 @@ public class CityControllerIntegrationTests {
         .andExpect(jsonPath("content", CoreMatchers.notNullValue()));
   }
 
+  @WithMockUser("spring")
   @Test
   public void testGetFirstPage_filter1() throws Exception {
     mvc.perform(get(apiV1Prefix + "/cities").param("name", "m").contentType(MediaType.APPLICATION_JSON))
@@ -78,6 +81,7 @@ public class CityControllerIntegrationTests {
         .andExpect(jsonPath("content", CoreMatchers.notNullValue()));
   }
 
+  @WithMockUser("spring")
   @Test
   public void testGetFirstPage_filter2() throws Exception {
     mvc.perform(get(apiV1Prefix + "/cities").param("name", "a").contentType(MediaType.APPLICATION_JSON))
@@ -93,6 +97,7 @@ public class CityControllerIntegrationTests {
         .andExpect(jsonPath("content", CoreMatchers.notNullValue()));
   }
 
+  @WithMockUser("spring")
   @Test
   public void testGetCity_happy() throws Exception {
     mvc.perform(get(apiV1Prefix + "/cities/{0}", 4).contentType(MediaType.APPLICATION_JSON))
@@ -103,6 +108,7 @@ public class CityControllerIntegrationTests {
         .andExpect(jsonPath("photo", CoreMatchers.is("Seoul picture")));
   }
 
+  @WithMockUser("spring")
   @Test
   public void testGetCity_unhappy() throws Exception {
     mvc.perform(get(apiV1Prefix + "/cities/{0}", 8).contentType(MediaType.APPLICATION_JSON))
@@ -110,6 +116,7 @@ public class CityControllerIntegrationTests {
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
   }
 
+  @WithMockUser(value = "spring", roles = {"ALLOW_EDIT"})
   @Test
   public void testEditCity_happy() throws Exception {
     City city = new City(7l, "M Lima", "Lima picture");
@@ -123,6 +130,7 @@ public class CityControllerIntegrationTests {
         .andExpect(jsonPath("totalElements", CoreMatchers.is(3)));
   }
 
+  @WithMockUser(value = "spring", roles = {"ALLOW_EDIT"})
   @Test
   public void testEditCity_happy_nullifyPhoto() throws Exception {
     City city = new City(7l, "Lima", null);
@@ -136,6 +144,7 @@ public class CityControllerIntegrationTests {
         .andExpect(jsonPath("photo", CoreMatchers.nullValue()));
   }
 
+  @WithMockUser(value = "spring", roles = {"ALLOW_EDIT"})
   @Test
   public void testEditCity_unhappy_recordDoesNotExist() throws Exception {
     City city = new City(8l, "Ganzhou", "Ganzhou picture");
@@ -143,11 +152,20 @@ public class CityControllerIntegrationTests {
         .andExpect(status().isNotFound());
   }
 
+  @WithMockUser(value = "spring", roles = {"ALLOW_EDIT"})
   @Test
   public void testEditCity_unhappy_nullifyName() throws Exception {
     City city = new City(7l, null, "Lima picture");
     mvc.perform(put(apiV1Prefix + "/cities/{0}", 7).content(asJsonString(city)).contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isBadRequest());
+  }
+
+  @WithMockUser(value = "spring", roles = {"READ_ONLY"})
+  @Test
+  public void testEditCity_unhappy_invalidRole() throws Exception {
+    City city = new City(7l, "M Lima", "Lima picture");
+    mvc.perform(put(apiV1Prefix + "/cities/{0}", 7).content(asJsonString(city)).contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isForbidden());
   }
 
   public static String asJsonString(final Object obj) {
